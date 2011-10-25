@@ -18,7 +18,7 @@
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="DeepaMehta server"
 NAME=deepamehta
-DAEMON=/usr/lib/deepamehta/deepamehta-linux.sh
+DAEMON=/usr/lib/deepamehta/deepamehta-daemon
 EXTRA_ARGS="-c $NAME --user $NAME --name $NAME --background --make-pidfile"
 DAEMON_ARGS=""
 PIDFILE=/var/run/$NAME/$NAME.pid
