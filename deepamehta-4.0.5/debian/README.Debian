@@ -1,0 +1,31 @@
+deepamehta for Debian
+---------------------
+
++++ DeepaMehta is still under heavy development! +++
+
+Do not use it in any productive and/or professional environment!
+
+Currently we can not provide an update mechanism for your data. Data you put
+into the current version of DeepaMehta might not be usable in a later version
+of DeepaMehta. Please keep this in mind when using this software.
+
+Thank you for your understanding!
+
++++ Configuration +++
+
+By default, DeepaMehta is listening on port 8080. To change this setting, edit /etc/deepamehta/config.properties.
+
+Run /etc/init.d/deepamehta start to start the daemon.
+
+dpkg -P deepamehta will remove all installed files but not delete your database.
+
++++ Apache +++
+
+See /usr/share/doc/deepamehta/examples/deepamehta.apache for a sample Apache2 config file (for details concerning Apache2 configuration see https://trac.deepamehta.de/wiki/UbuntuConfiguringApache2ServerSSLProxy.
+
++++ Security +++
+
+To secure your installation with iptables see https://trac.deepamehta.de/wiki/UbuntuSecuringDeepaMehta.
+
+
+ -- Silke Meyer <silke@silkemeyer.net>  Sat, 23 Oct 2011 16:30:42 +0200

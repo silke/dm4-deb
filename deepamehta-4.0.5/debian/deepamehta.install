@@ -1,0 +1,5 @@
+bin/bin/* /usr/lib/deepamehta/bin
+bin/bundle/* /usr/lib/deepamehta/bundle
+bin/deepamehta-linux.sh /usr/lib/deepamehta
+bin/conf/* /etc/deepamehta
+init/deepamehta /etc/init.d

@@ -1,0 +1,16 @@
+deepamehta (4.0.5-1ubuntu2) lucid; urgency=low
+
+  * Bugfixes: 
+    Deletion of remaining obsolete directory /usr/lib/deepamehta/conf,
+    corrected file permissions on log and config files,
+    corrected an error in the logging config, replaced both config file with
+    commented versions.
+
+ -- Silke Meyer <silke@silkemeyer.net>  Tue, 25 Oct 2011 18:45:03 +0200
+
+deepamehta (4.0.5-1ubuntu1) lucid; urgency=low
+
+  * Initial release of DeepaMehta 4.0.5 (stable). Please refer to the release
+    notes for further details: https://trac.deepamehta.de/wiki/ReleaseNotes
+
+ -- Silke Meyer <silke@silkemeyer.net>  Sun, 23 Oct 2011 17:56:07 +0200
