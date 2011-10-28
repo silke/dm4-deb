@@ -13,7 +13,7 @@ Thank you for your understanding!
 
 +++ Configuration +++
 
-By default, DeepaMehta is listening on port 8080. To change this setting, edit /etc/deepamehta/config.properties.
+By default, DeepaMehta is listening on port 8080. To change this setting, edit /etc/deepamehta/deepamehta.conf.
 
 Run /etc/init.d/deepamehta start to start the daemon.
 

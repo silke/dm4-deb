@@ -1,3 +1,10 @@
+deepamehta (4.0.5-1ubuntu3) lucid; urgency=low
+
+  * Fixed permission of /usr/lib/deepamehta/deepamehta-daemon and remove
+    obsolete config files
+
+ -- Silke Meyer <silke@silkemeyer.net>  Fri, 28 Oct 2011 10:02:37 +0200
+
 deepamehta (4.0.5-1ubuntu2) lucid; urgency=low
 
   * Bugfixes: 

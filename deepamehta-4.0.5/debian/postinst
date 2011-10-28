@@ -21,7 +21,14 @@ set -e
 
 case "$1" in
     configure)
+    if [ -f /etc/deepamehta/logging.properties ]; then
+	    rm /etc/deepamehta/logging.properties
+    fi
+    if [ -f /etc/deepamehta/config.properties ]; then
+	    rm /etc/deepamehta/config.properties
+    fi
     chmod 755 /etc/init.d/deepamehta
+    chmod 755 /usr/lib/deepamehta/deepamehta-daemon
     chmod 644 /etc/deepamehta/*
     update-rc.d deepamehta defaults
     chown -R deepamehta:deepamehta /var/lib/deepamehta
