@@ -24,6 +24,8 @@ case "$1" in
     adduser --system --home /var/lib/deepamehta --group --disabled-password --disabled-login --gecos DeepaMehta deepamehta
     if [ -d /var/lib/deepamehta/deepamehta-db ] && [ ! -f /var/lib/deepamehta/deepamehta-db/.db-updated.405 ]; then
 	    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE
+	    mkdir /var/lib/deepamehta/deepamehta-db
+	    chown deepamehta:deepamehta /var/lib/deepamehta/deepamehta-db
 	    touch /var/lib/deepamehta/deepamehta-db/.db-updated.405
 	   echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE."
     fi
@@ -35,6 +37,8 @@ case "$1" in
     upgrade)
     if [ -d /var/lib/deepamehta/deepamehta-db ] && [ ! -f /var/lib/deepamehta/deepamehta-db/.db-updated.405 ]; then
 	    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE
+	    mkdir /var/lib/deepamehta/deepamehta-db
+	    chown deepamehta:deepamehta /var/lib/deepamehta/deepamehta-db
 	    touch /var/lib/deepamehta/deepamehta-db/.db-updated.405
 	   echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE."
     fi
