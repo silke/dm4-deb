@@ -22,9 +22,10 @@ fi
 case "$1" in
     install)
     adduser --system --home /var/lib/deepamehta --group --disabled-password --disabled-login --gecos DeepaMehta deepamehta
-    if [ -d /var/lib/deepamehta/deepamehta-db ]; then
+    if [ -d /var/lib/deepamehta/deepamehta-db ] && [ ! -f /var/lib/deepamehta/deepamehta-db/.db-updated.405 ]; then
 	    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE
-	    echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE."
+	    touch /var/lib/deepamehta/deepamehta-db/.db-updated.405
+	   echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE."
     fi
     if [ -d /var/cache/deepamehta/bundle-cache ]; then
 	    rm -rf /var/cache/deepamehta/bundle-cache
@@ -32,10 +33,12 @@ case "$1" in
     ;;
 
     upgrade)
-    if [ -d /var/lib/deepamehta/deepamehta-db ]; then
+    if [ -d /var/lib/deepamehta/deepamehta-db ] && [ ! -f /var/lib/deepamehta/deepamehta-db/.db-updated.405 ]; then
 	    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE
-	    echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE."
+	    touch /var/lib/deepamehta/deepamehta-db/.db-updated.405
+	   echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE."
     fi
+
     if [ -d /var/cache/deepamehta/bundle-cache ]; then
 	    rm -rf /var/cache/deepamehta/bundle-cache
     fi

@@ -31,6 +31,9 @@ case "$1" in
 esac
 
 if [ "$1" = purge ]; then
+    if [ -f /var/log/deepamehta/deepamehta.log ]; then
+	rm /var/log/deepamehta/*
+    fi
     deluser --system --remove-home deepamehta
     update-rc.d deepamehta remove
 fi

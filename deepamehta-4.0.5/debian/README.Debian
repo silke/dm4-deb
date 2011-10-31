@@ -13,9 +13,7 @@ Thank you for your understanding!
 
 +++ Configuration +++
 
-By default, DeepaMehta is listening on port 8080. To change this setting, edit /etc/deepamehta/deepamehta.conf.
-
-Run /etc/init.d/deepamehta start to start the daemon.
+By default, DeepaMehta is listening on port 8080. To change this setting, edit /etc/deepamehta/deepamehta.conf. Adjust the settings in /etc/deepamehta/deepamehta.conf and make sure your computer is protected by a firewall. Then edit /etc/default/deepamehta and set "START_DEEPAMEHTA=yes" before invoking "/etc/init.d/deepamehta start" to start DeepaMehta.
 
 dpkg -P deepamehta will remove all installed files but not delete your database.
 

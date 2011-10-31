@@ -23,9 +23,6 @@ case "$1" in
 	    /etc/init.d/deepamehta stop
     fi
     rm -rf /var/cache/deepamehta/bundle-cache
-    if [ -f /var/log/deepamehta/deepamehta.log ]; then
-	    rm /var/log/deepamehta/*
-    fi
     ;;
 
     failed-upgrade)

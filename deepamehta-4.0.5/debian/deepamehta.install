@@ -2,4 +2,5 @@ bin/bin/* /usr/lib/deepamehta/bin
 bin/bundle/* /usr/lib/deepamehta/bundle
 bin/deepamehta-daemon /usr/lib/deepamehta
 bin/conf/* /etc/deepamehta
-init/deepamehta /etc/init.d
+etc/init.d/deepamehta /etc/init.d
+etc/default/deepamehta /etc/default
