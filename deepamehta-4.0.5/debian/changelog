@@ -1,3 +1,15 @@
+deepamehta (4.0.5-1ubuntu6) lucid; urgency=low
+
+  * Again: db backup check file
+
+ -- Silke Meyer <silke@silkemeyer.net>  Tue, 01 Nov 2011 12:07:06 +0100
+
+deepamehta (4.0.5-1ubuntu5) lucid; urgency=low
+
+  * Corrected bug in preinst concerning the db backup check file
+
+ -- Silke Meyer <silke@silkemeyer.net>  Mon, 31 Oct 2011 18:23:38 +0100
+
 deepamehta (4.0.5-1ubuntu4) lucid; urgency=low
 
   * Bugfixes:

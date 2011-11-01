@@ -14,6 +14,7 @@ set -e
 # the debian-policy package
 
 BACKUPDATE=$( date +%F-%H:%M:%S )
+DMVERSION=405
 
 if [ -f /var/run/deepamehta/deepamehta.pid ]; then
     /etc/init.d/deepamehta stop
@@ -22,12 +23,19 @@ fi
 case "$1" in
     install)
     adduser --system --home /var/lib/deepamehta --group --disabled-password --disabled-login --gecos DeepaMehta deepamehta
-    if [ -d /var/lib/deepamehta/deepamehta-db ] && [ ! -f /var/lib/deepamehta/deepamehta-db/.db-updated.405 ]; then
-	    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE
+    if [ -d /var/lib/deepamehta/deepamehta-db ]; then
+	    if [ ! -f
+		    /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION ]; then
+		    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-$DMVERSION-backup-$BACKUPDATE
+		    mkdir /var/lib/deepamehta/deepamehta-db
+		    chown deepamehta:deepamehta /var/lib/deepamehta/deepamehta-db
+		    touch /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION
+		    echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-$DMVERSION-backup-$BACKUPDATE."
+	    fi
+    else
 	    mkdir /var/lib/deepamehta/deepamehta-db
 	    chown deepamehta:deepamehta /var/lib/deepamehta/deepamehta-db
-	    touch /var/lib/deepamehta/deepamehta-db/.db-updated.405
-	   echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE."
+	    touch /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION
     fi
     if [ -d /var/cache/deepamehta/bundle-cache ]; then
 	    rm -rf /var/cache/deepamehta/bundle-cache
@@ -35,14 +43,13 @@ case "$1" in
     ;;
 
     upgrade)
-    if [ -d /var/lib/deepamehta/deepamehta-db ] && [ ! -f /var/lib/deepamehta/deepamehta-db/.db-updated.405 ]; then
-	    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE
+    if [ -d /var/lib/deepamehta/deepamehta-db ] && [ ! -f /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION ]; then
+	    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-$DMVERSION-backup-$BACKUPDATE
 	    mkdir /var/lib/deepamehta/deepamehta-db
 	    chown deepamehta:deepamehta /var/lib/deepamehta/deepamehta-db
-	    touch /var/lib/deepamehta/deepamehta-db/.db-updated.405
-	   echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-backup-$BACKUPDATE."
+	    touch /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION
+	    echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-$DMVERSION-backup-$BACKUPDATE."
     fi
-
     if [ -d /var/cache/deepamehta/bundle-cache ]; then
 	    rm -rf /var/cache/deepamehta/bundle-cache
     fi
