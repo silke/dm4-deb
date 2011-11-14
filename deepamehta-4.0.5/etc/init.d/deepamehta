@@ -88,7 +88,7 @@ do_start()
 	#   0 if daemon has been started
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
-	echo -n "   Starting $DESC ... "
+	echo -n "\n   Starting $DESC ... "
 	status_of_daemon || ( [ "$?" = 1 ] && start-stop-daemon --start $EXTRA_ARGS --quiet --pidfile $PIDFILE --startas $DAEMON $DAEMON_ARGS )
 	# Add code here, if necessary, that waits for the process to be ready
 	# to handle requests from services started subsequently which depend
@@ -97,7 +97,7 @@ do_start()
 	# Sleep at least 8 seconds to check if deepamehta is running!
 	sleep 8
 	# Now check if we can find the according java process.
-	status_of_daemon && echo "done." || ( echo "   stopped!"; [ -f $PIDFILE ] && rm $PIDFILE )
+	status_of_daemon && echo "done.\n" || ( echo "   stopped!\n"; [ -f $PIDFILE ] && rm $PIDFILE )
 }
 
 #
@@ -110,10 +110,10 @@ do_stop()
 	#   1 if daemon was already stopped
 	#   2 if daemon could not be stopped
 	#   other if a failure occurred
-	echo -n "   Stopping $DESC ... "
+	echo -n "\n   Stopping $DESC ... "
 	status_of_daemon && start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE 
 	RETVAL="$?"
-	status_of_daemon || echo "done."
+	status_of_daemon || echo "done.\n"
 	[ "$RETVAL" = 2 ] && return 2
 	# Wait for children to finish too if this is a daemon that forks
 	# and if the daemon is only ever run from this initscript.
@@ -145,7 +145,7 @@ do_reload() {
 case "$1" in
   start)
 	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
-	status_of_daemon || ( [ "$?" = 1 ] && do_start )
+	status_of_daemon || ( [ "$?" = 1 ] && ( [ ! -z $LOG_DEEPAMEHTA_INIT ] && echo "\n$( date +%d.%m.%Y" "%H:%M:%S ) *** Starting $DESC ***">>$LOG_DEEPAMEHTA_INIT ); do_start )
 	case "$?" in
 		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
 		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
@@ -153,14 +153,14 @@ case "$1" in
 	;;
   stop)
 	[ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
-	status_of_daemon && do_stop
+	status_of_daemon && ( do_stop; ( [ ! -z $LOG_DEEPAMEHTA_INIT ] && echo "$( date +%d.%m.%Y" "%H:%M:%S ) *** Stopping $DESC ***">>$LOG_DEEPAMEHTA_INIT ) )
 	case "$?" in
 		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
 		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
 	esac
 	;;
   status)
-       status_of_daemon && echo "   $DESC is running with PID $PIDLNUM." || echo "   $DESC is not running."
+       status_of_daemon && echo "\n   $DESC is running with PID $PIDLNUM.\n" || echo "\n   $DESC is not running.\n"
        ;;
   restart|force-reload)
 	#
@@ -171,7 +171,7 @@ case "$1" in
 	status_of_daemon && do_stop
 	case "$?" in
 	  0|1)
-		do_start
+		( [ ! -z $LOG_DEEPAMEHTA_INIT ] && echo "\n$( date +%d.%m.%Y" "%H:%M:%S ) *** Restarting $DESC ***">>$LOG_DEEPAMEHTA_INIT ); do_start
 		case "$?" in
 			0) log_end_msg 0 ;;
 			1) log_end_msg 1 ;; # Old process is still running

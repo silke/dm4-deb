@@ -1,3 +1,9 @@
+deepamehta (4.0.5-1ubuntu7) lucid; urgency=low
+
+  * enabled logging of the init.d events to /var/log/deepamehta by default
+
+ -- Silke Meyer <silke@silkemeyer.net>  Mon, 14 Nov 2011 10:53:52 +0100
+
 deepamehta (4.0.5-1ubuntu6) lucid; urgency=low
 
   * Again: db backup check file
