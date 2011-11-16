@@ -1,4 +1,4 @@
-# /etc/default/deepamehta	2011-11-13 16:12:07.330037393 +0100
+# /etc/default/deepamehta
 # This file is utilized by init script /etc/init.d/deepamehta.
 # Set START_DEEPAMEHTA to 'yes' to start DeepaMehta daemon.
 #

@@ -1,3 +1,9 @@
+deepamehta (4.0.5-1ubuntu8) lucid; urgency=low
+
+  * minor detail: removed obsolete timestamp from /etc/default/deepamehta
+
+ -- Silke Meyer <silke@silkemeyer.net>  Wed, 16 Nov 2011 09:39:48 +0100
+
 deepamehta (4.0.5-1ubuntu7) lucid; urgency=low
 
   * enabled logging of the init.d events to /var/log/deepamehta by default
