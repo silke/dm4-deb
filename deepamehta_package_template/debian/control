@@ -1,0 +1,13 @@
+Source: deepamehta
+Section: misc
+Priority: extra
+Maintainer: Silke Meyer <silke@silkemeyer.net>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.8.3
+Homepage: http://www.deepamehta.de
+
+Package: deepamehta
+Architecture: all
+Depends: default-jdk
+Description: Semantic software platform for collaboration and knowledge management.
+ DeepaMehta is a software platform for collaboration and Knowledge Management. Knowledge is represented in a semantic network and is handled collaboratively. DeepaMehta combines interdisciplinary research with the idea of Free and Open Source Software to generate a true benefit for workflow as well as for social processes. At the same time Deepa Mehta is an indian movie director. The DeepaMehta user interface is build according to research in Cognitive Psychology and accommodates the knowledge building process of the individual. Instead of handling information through applications, windows and files with DeepaMehta the user handles all kind of information directly and individually. DeepaMehta's user interface is completely based on Mind Maps / Concept Maps.

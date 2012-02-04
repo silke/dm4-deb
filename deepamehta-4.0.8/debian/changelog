@@ -1,0 +1,63 @@
+deepamehta (4.0.8-1) lucid; urgency=low
+
+  * DeepaMehta 4.0.8, including geomaps and facets plugins
+
+ -- Silke Meyer <silke@silkemeyer.net>  Fri, 03 Feb 2012 14:59:19 +0100
+
+deepamehta (4.0.5-1ubuntu8) lucid; urgency=low
+
+  * minor detail: removed obsolete timestamp from /etc/default/deepamehta
+
+ -- Silke Meyer <silke@silkemeyer.net>  Wed, 16 Nov 2011 09:39:48 +0100
+
+deepamehta (4.0.5-1ubuntu7) lucid; urgency=low
+
+  * enabled logging of the init.d events to /var/log/deepamehta by default
+
+ -- Silke Meyer <silke@silkemeyer.net>  Mon, 14 Nov 2011 10:53:52 +0100
+
+deepamehta (4.0.5-1ubuntu6) lucid; urgency=low
+
+  * Again: db backup check file
+
+ -- Silke Meyer <silke@silkemeyer.net>  Tue, 01 Nov 2011 12:07:06 +0100
+
+deepamehta (4.0.5-1ubuntu5) lucid; urgency=low
+
+  * Corrected bug in preinst concerning the db backup check file
+
+ -- Silke Meyer <silke@silkemeyer.net>  Mon, 31 Oct 2011 18:23:38 +0100
+
+deepamehta (4.0.5-1ubuntu4) lucid; urgency=low
+
+  * Bugfixes:
+    Deletion of log files only when purging,
+    changed text in /usr/share/doc/deepamehta/examples/deepamehta.filedir
+    implemented a check if database backup is necessary,
+    using /etc/default to start dm or not
+
+ -- Silke Meyer <silke@silkemeyer.net>  Mon, 31 Oct 2011 14:17:02 +0100
+
+deepamehta (4.0.5-1ubuntu3) lucid; urgency=low
+
+  * Fixed permission of /usr/lib/deepamehta/deepamehta-daemon and remove
+    obsolete config files
+
+ -- Silke Meyer <silke@silkemeyer.net>  Fri, 28 Oct 2011 10:02:37 +0200
+
+deepamehta (4.0.5-1ubuntu2) lucid; urgency=low
+
+  * Bugfixes: 
+    Deletion of remaining obsolete directory /usr/lib/deepamehta/conf,
+    corrected file permissions on log and config files,
+    corrected an error in the logging config, replaced both config file with
+    commented versions.
+
+ -- Silke Meyer <silke@silkemeyer.net>  Tue, 25 Oct 2011 18:45:03 +0200
+
+deepamehta (4.0.5-1ubuntu1) lucid; urgency=low
+
+  * Initial release of DeepaMehta 4.0.5 (stable). Please refer to the release
+    notes for further details: https://trac.deepamehta.de/wiki/ReleaseNotes
+
+ -- Silke Meyer <silke@silkemeyer.net>  Sun, 23 Oct 2011 17:56:07 +0200

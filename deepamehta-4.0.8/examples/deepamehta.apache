@@ -1,0 +1,35 @@
+ <VirtualHost *:443>
+    
+    ServerName deepamehta.yourdomain.tld
+    ServerAdmin postmaster@yourdomain.tld
+
+    SSLEngine On
+    SSLCertificateFile /etc/apache2/ssl/deepamehta.yourdomain.tld.pem
+
+    ErrorLog /var/log/apache2/deepamehta-error.log
+    CustomLog /var/log/apache2/deepamehta-access.log combined
+    
+    RewriteEngine On 
+    RewriteRule ^/?$ http://localhost:8080/index.html [P] 
+    
+    ProxyRequests Off
+    ProxyPreserveHost Off
+    AllowEncodedSlashes On
+    
+    <Proxy *>
+	Order deny,allow
+        Allow from all
+    </Proxy>
+    
+    <location />
+	Order allow,deny
+	Allow from all
+	AuthType Digest
+	AuthName "deepamehta.yourdomain.tld"
+	AuthUserFile /etc/apache2/.htdigest
+	Require valid-user
+	ProxyPass http://localhost:8080/
+	ProxyPassReverse http://localhost:8080/
+    </location>
+
+ </VirtualHost>

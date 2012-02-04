@@ -1,0 +1,196 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          deepamehta
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: DeepaMehta initscript
+# Description:       This file should be used to start and stop DeepaMehta. 
+#                    To be placed in /etc/init.d.
+# Author:            Juergen Neumann <j.neumann{at}junes{dot}eu>
+#
+### END INIT INFO
+
+# Do NOT "set -e"
+
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="DeepaMehta daemon"
+NAME=deepamehta
+DAEMON=/usr/lib/deepamehta/deepamehta-daemon
+EXTRA_ARGS="-c $NAME --user $NAME --name $NAME --background --make-pidfile"
+DAEMON_ARGS=""
+PIDFILE=/var/run/$NAME/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+
+# Exit if the package is not installed
+if [ ! -x "$DAEMON" ]; then 
+    echo "$DAEMON not found"
+    exit 0
+fi
+
+# create PID directory
+if [ ! -d /var/run/$NAME ]; then
+    mkdir /var/run/$NAME
+    chown $NAME:$NAME /var/run/$NAME
+    sleep 2
+fi
+
+# Read configuration variable file if it is present
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+# Load the VERBOSE setting and other rcS variables
+. /lib/init/vars.sh
+
+# Define LSB log_* functions.
+# Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
+. /lib/lsb/init-functions
+
+#
+# Function that reports the status of the daemon/service
+#
+status_of_daemon() {
+    # Return
+    #   0 if daemon is running
+    #   1 if daemon is not running
+    #   2 on pidfile mismatch
+    PIDLNUM=$( ps -U $NAME -u $NAME o pid= | sed s'/^\ //' )
+    if [ "$PIDLNUM" != "" ]; then
+	if [ -f $PIDFILE ]; then
+	    PIDFNUM=$( cat $PIDFILE )
+	    if [ "$PIDLNUM" != "$PIDFNUM" ]; then
+		echo "\n   Error in pidfile $PIDFILE! - Is there another $NAME process running?\n"
+		return 2
+	    else
+		return 0
+	    fi
+	else
+	    echo "\n   WARNING! Found running $DESC with PID $PIDLNUM,\n   but no valid pidfile $PIDFILE was found.\n"
+	    return 2
+	fi
+    else
+	return 1
+    fi
+}
+
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+	# Check START_DEEPAMEHTA
+	if [ "$START_DEEPAMEHTA" != "yes" ]; then
+	    echo "\n   $DESC is disabled in /etc/default/$NAME.\n"
+	    exit 0
+	fi
+	# Return
+	#   0 if daemon has been started
+	#   1 if daemon was already running
+	#   2 if daemon could not be started
+	echo -n "\n   Starting $DESC ... "
+	status_of_daemon || ( [ "$?" = 1 ] && start-stop-daemon --start $EXTRA_ARGS --quiet --pidfile $PIDFILE --startas $DAEMON $DAEMON_ARGS )
+	# Add code here, if necessary, that waits for the process to be ready
+	# to handle requests from services started subsequently which depend
+	# on this one.  As a last resort, sleep for some time.
+	
+	# Sleep at least 8 seconds to check if deepamehta is running!
+	sleep 8
+	# Now check if we can find the according java process.
+	status_of_daemon && echo "done.\n" || ( echo "   stopped!\n"; [ -f $PIDFILE ] && rm $PIDFILE )
+}
+
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+	# Return
+	#   0 if daemon has been stopped
+	#   1 if daemon was already stopped
+	#   2 if daemon could not be stopped
+	#   other if a failure occurred
+	echo -n "\n   Stopping $DESC ... "
+	status_of_daemon && start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE 
+	RETVAL="$?"
+	status_of_daemon || echo "done.\n"
+	[ "$RETVAL" = 2 ] && return 2
+	# Wait for children to finish too if this is a daemon that forks
+	# and if the daemon is only ever run from this initscript.
+	# If the above conditions are not satisfied then add some other code
+	# that waits for the process to drop all resources that could be
+	# needed by services started subsequently.  A last resort is to
+	# sleep for some time.
+	status_of_daemon && start-stop-daemon --stop --quiet --oknodo --retry=0/30/KILL/5 --pidfile $PIDFILE
+	[ "$?" = 2 ] && return 2
+	# Many daemons don't delete their pidfiles when they exit.
+	[ -f $PIDFILE ] && rm -f $PIDFILE
+	return "$RETVAL"
+}
+
+#
+# Function that sends a SIGHUP to the daemon/service
+#
+do_reload() {
+	#
+	# If the daemon can reload its configuration without
+	# restarting (for example, when it is sent a SIGHUP),
+	# then implement that here.
+	#
+	start-stop-daemon --stop --signal 1 --quiet --pidfile $PIDFILE 
+	return 0
+}
+
+
+case "$1" in
+  start)
+	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+	status_of_daemon || ( [ "$?" = 1 ] && ( [ ! -z $LOG_DEEPAMEHTA_INIT ] && echo "\n$( date +%d.%m.%Y" "%H:%M:%S ) *** Starting $DESC ***">>$LOG_DEEPAMEHTA_INIT ); do_start )
+	case "$?" in
+		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
+	;;
+  stop)
+	[ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
+	status_of_daemon && ( do_stop; ( [ ! -z $LOG_DEEPAMEHTA_INIT ] && echo "$( date +%d.%m.%Y" "%H:%M:%S ) *** Stopping $DESC ***">>$LOG_DEEPAMEHTA_INIT ) )
+	case "$?" in
+		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
+	;;
+  status)
+       status_of_daemon && echo "\n   $DESC is running with PID $PIDLNUM.\n" || echo "\n   $DESC is not running.\n"
+       ;;
+  restart|force-reload)
+	#
+	# If the "reload" option is implemented then remove the
+	# 'force-reload' alias
+	#
+	log_daemon_msg "Restarting $DESC" "$NAME"
+	status_of_daemon && do_stop
+	case "$?" in
+	  0|1)
+		( [ ! -z $LOG_DEEPAMEHTA_INIT ] && echo "\n$( date +%d.%m.%Y" "%H:%M:%S ) *** Restarting $DESC ***">>$LOG_DEEPAMEHTA_INIT ); do_start
+		case "$?" in
+			0) log_end_msg 0 ;;
+			1) log_end_msg 1 ;; # Old process is still running
+			*) log_end_msg 1 ;; # Failed to start
+		esac
+		;;
+	  *)
+	  	# Failed to stop
+		log_end_msg 1
+		;;
+	esac
+	;;
+  *)
+	# Display options
+	echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}" >&2
+	exit 3
+	;;
+esac
+
+:
+
+#EOF
