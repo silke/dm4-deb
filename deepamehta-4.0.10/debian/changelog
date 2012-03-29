@@ -1,3 +1,9 @@
+deepamehta (4.0.10-1) lucid; urgency=low
+
+  * Bug fix release: The Back button works cross-topicmap again. Building from source with a pristine maven repo works again.
+
+ -- Silke Meyer <silke@silkemeyer.net>  Tue, 27 Mar 2012 17:24:59 +0200
+
 deepamehta (4.0.9-1) lucid; urgency=low
 
   * Bug fixes
