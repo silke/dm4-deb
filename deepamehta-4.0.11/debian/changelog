@@ -1,3 +1,9 @@
+deepamehta (4.0.11-2) lucid; urgency=low
+
+  * removed DM4 Kiezatlas plugin from the Debian package
+
+ -- Silke Meyer <silke@silkemeyer.net>  Mon, 21 May 2012 22:32:50 +0200
+
 deepamehta (4.0.11-1) lucid; urgency=low
 
   * Improvements: Implicit Saving: the user must no longer care about saving (#243).
