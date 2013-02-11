@@ -51,11 +51,11 @@ if [ ! -z $LOG_DEEPAMEHTA_INIT ] && [ ! -f $LOG_DEEPAMEHTA_INIT ]; then
 fi
 
 # Load the VERBOSE setting and other rcS variables
-# . /lib/init/vars.sh
+. /lib/init/vars.sh
 
 # Define LSB log_* functions.
 # Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
-# . /lib/lsb/init-functions
+. /lib/lsb/init-functions
 
 #
 # Function that reports the status of the daemon/service

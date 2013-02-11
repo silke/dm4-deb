@@ -1,3 +1,9 @@
+deepamehta (4.0.14-2) precise; urgency=low
+
+  * minor fix in initscript
+
+ -- Silke Meyer <silke@silkemeyer.net>  Mon, 11 Feb 2013 06:41:49 +0100
+
 deepamehta (4.0.14-1) precise; urgency=low
 
   * some changes in initscript and config files of the Debian package
