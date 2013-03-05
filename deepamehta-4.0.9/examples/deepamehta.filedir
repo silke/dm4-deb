@@ -1,1 +1,0 @@
-The default files directory is /var/lib/deepamehta/deepamehta-filedir. To change this, edit /etc/deepamehta/deepamehta.conf.
