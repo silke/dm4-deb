@@ -35,7 +35,7 @@ if [ "$1" = purge ]; then
 	rm /var/log/deepamehta/*
     fi
     deluser --system --remove-home deepamehta
-    update-rc.d deepamehta remove
+    update-rc.d deepamehta remove > /dev/null 2>&1
 fi
 
 # dh_installdeb will replace this with shell code automatically

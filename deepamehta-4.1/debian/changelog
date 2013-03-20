@@ -1,3 +1,13 @@
+deepamehta (4.1-2) precise; urgency=low
+
+  * minor bug fixes in the Debian packages's information files
+  * added conflict with upcoming deepamehta-karaf package and dependency on
+    adduser
+  * worked on first lintian messages (using invoke-rc.d in maintainer scripts)
+  * please see the README.Debian for more information on the Debian package
+
+ -- Silke Meyer <silke@silkemeyer.net>  Wed, 20 Mar 2013 16:48:57 +0100
+
 deepamehta (4.1-1) precise; urgency=low
 
   * Debian / Ubuntu package for DeepaMehta 4.1

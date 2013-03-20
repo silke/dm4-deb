@@ -1,13 +1,9 @@
 deepamehta for Debian
 ---------------------
 
-+++ DeepaMehta is still under heavy development! +++
++++ DeepaMehta is under heavy development! +++
 
-Do not use it in any productive and/or professional environment!
-
-Currently we can not provide an update mechanism for your data. Data you put
-into the current version of DeepaMehta might not be usable in a later version
-of DeepaMehta. Please keep this in mind when using this software.
+While you can do productive work with it, DeepaMehta does not meet professional standards yet. At least there are lacks in a) security, b) robustness, and c) usability. Do not put sensitive data in DeepaMehta, in particular when you setup DeepaMehta for network access. Be aware that data loss may occur when you use DeepaMehta improperly. The DeepaMehta developers assume no liability for lost or compromised data. Please keep this in mind when using this software.
 
 Thank you for your understanding!
 
@@ -26,4 +22,4 @@ See /usr/share/doc/deepamehta/examples/deepamehta.apache for a sample Apache2 co
 To secure your installation with iptables see https://trac.deepamehta.de/wiki/UbuntuSecuringDeepaMehta.
 
 
- -- Silke Meyer <silke@silkemeyer.net>  Sat, 23 Oct 2011 16:30:42 +0200
+ -- Silke Meyer <silke@silkemeyer.net>  Wed, 20 Mar 2013 15:58:48 +0100
