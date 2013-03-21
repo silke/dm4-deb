@@ -29,7 +29,6 @@ case "$1" in
     chown -R deepamehta:deepamehta /var/lib/deepamehta
     chown -R deepamehta:deepamehta /var/cache/deepamehta
     chown -R deepamehta:deepamehta /var/log/deepamehta
-    chown -R deepamehta:deepamehta /var/run/deepamehta
     cp /usr/share/doc/deepamehta/examples/deepamehta.filedir /var/lib/deepamehta/deepamehta-filedir/README.txt
     if which invoke-rc.d > /dev/null 2>&1; then
 	    invoke-rc.d deepamehta start
