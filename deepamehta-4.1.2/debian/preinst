@@ -14,7 +14,7 @@ set -e
 # the debian-policy package
 
 BACKUPDATE=$( date +%F-%H:%M:%S )
-DMVERSION=XXX
+DMVERSION=4.1.2
 
 if [ -f /var/run/deepamehta/deepamehta.pid ]; then
     /etc/init.d/deepamehta stop
