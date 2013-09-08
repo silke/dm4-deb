@@ -15,6 +15,7 @@ set -e
 
 BACKUPDATE=$( date +%F-%H:%M:%S )
 DMVERSION=4.1.2
+PREVIOUSVERSION=$( find /var/lib/deepamehta/deepamehta-db/ -name "*.db-updated.*" | cut -d'.' -f'3-' | sort -V | tail -n1 )
 
 if [ -f /var/run/deepamehta/deepamehta.pid ]; then
     /etc/init.d/deepamehta stop
@@ -24,13 +25,12 @@ case "$1" in
     install)
     adduser --system --home /var/lib/deepamehta --group --disabled-password --disabled-login --gecos DeepaMehta deepamehta
     if [ -d /var/lib/deepamehta/deepamehta-db ]; then
-	    if [ ! -f
-		    /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION ]; then
-		    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-$DMVERSION-backup-$BACKUPDATE
+	    if [ ! -f /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION ]; then
+		    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-$PREVIOUSVERSION-backup-$BACKUPDATE
 		    mkdir /var/lib/deepamehta/deepamehta-db
 		    chown deepamehta:deepamehta /var/lib/deepamehta/deepamehta-db
 		    touch /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION
-		    echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-$DMVERSION-backup-$BACKUPDATE."
+		    echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-$PREVIOUSVERSION-backup-$BACKUPDATE."
 	    fi
     else
 	    mkdir /var/lib/deepamehta/deepamehta-db
@@ -45,16 +45,18 @@ case "$1" in
     upgrade)
     # existing DB is < DM 4.1
     if [ -d /var/lib/deepamehta/deepamehta-db ] && [ ! -f /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION ] && [ -f /var/lib/deepamehta/deepamehta-db/.db-updated.4.0* ]; then
-	    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-$DMVERSION-backup-$BACKUPDATE
+	    mv /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-$PREVIOUSVERSION-backup-$BACKUPDATE
 	    mkdir /var/lib/deepamehta/deepamehta-db
 	    chown deepamehta:deepamehta /var/lib/deepamehta/deepamehta-db
 	    touch /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION
-	    echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-$DMVERSION-backup-$BACKUPDATE."
+	    echo "Your existing database has been moved to /var/lib/deepamehta/deepamehta-db-$PREVIOUSVERSION-backup-$BACKUPDATE."
+		rm /var/lib/deepamehta/deepamehta-db/.db-updated.$PREVIOUSVERSION
     # existing DB is >= DM 4.1
-    elif [ -d /var/lib/deepamehta/deepamehta-db ] && [ -f /var/lib/deepamehta/deepamehta-db/.db-updated.4.1* ] && [ ! -f /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION ]; then
-        cp /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-$DMVERSION-backup-$BACKUPDATE
+    elif [ -d /var/lib/deepamehta/deepamehta-db ] && [ ! -f /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION ] && [ -f /var/lib/deepamehta/deepamehta-db/.db-updated.4.1* ]; then
+        cp -a /var/lib/deepamehta/deepamehta-db /var/lib/deepamehta/deepamehta-db-$PREVIOUSVERSION-backup-$BACKUPDATE
         touch /var/lib/deepamehta/deepamehta-db/.db-updated.$DMVERSION
-	echo "Your existing database has been copied to /var/lib/deepamehta/deepamehta-db-$DMVERSION-backup-$BACKUPDATE."
+		echo "Your existing database has been copied to /var/lib/deepamehta/deepamehta-db-$PREVIOUSVERSION-backup-$BACKUPDATE."
+		rm /var/lib/deepamehta/deepamehta-db/.db-updated.$PREVIOUSVERSION
     fi
     if [ -d /var/cache/deepamehta/bundle-cache ]; then
 	    rm -rf /var/cache/deepamehta/bundle-cache
