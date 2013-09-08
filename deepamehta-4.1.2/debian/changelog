@@ -1,3 +1,9 @@
+deepamehta (4.1.2-3) precise; urgency=low
+
+  * Making sure the correct bundle cache directory is deleted.
+
+ -- Silke Meyer <silke@silkemeyer.net>  Sun, 08 Sep 2013 14:35:37 +0200
+
 deepamehta (4.1.2-2) precise; urgency=low
 
   * Corrected bug in preinst script.
