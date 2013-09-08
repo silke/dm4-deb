@@ -1,3 +1,10 @@
+deepamehta (4.1.2-2) precise; urgency=low
+
+  * Corrected bug in preinst script.
+  * Naming db backups after previous version, deleting old db check files.
+
+ -- Silke Meyer <silke@silkemeyer.net>  Sun, 08 Sep 2013 10:45:13 +0200
+
 deepamehta (4.1.2-1) precise; urgency=low
 
   * Existing databases >= 4.1 are kept.
