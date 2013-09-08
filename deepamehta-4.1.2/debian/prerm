@@ -22,7 +22,13 @@ case "$1" in
     if [ -f /var/run/deepamehta/deepamehta.pid ]; then
 	    /etc/init.d/deepamehta stop
     fi
-    rm -rf /var/cache/deepamehta/bundle-cache
+
+    if [ -d /var/cache/deepamehta/bundle-cache ]; then
+	    rm -rf /var/cache/deepamehta/bundle-cache
+    fi
+    if [ -d /var/cache/deepamehta/deepamehta-bundle-cache ]; then
+	    rm -rf /var/cache/deepamehta/deepamehta-bundle-cache
+    fi
     ;;
 
     failed-upgrade)

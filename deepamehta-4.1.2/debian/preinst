@@ -40,6 +40,9 @@ case "$1" in
     if [ -d /var/cache/deepamehta/bundle-cache ]; then
 	    rm -rf /var/cache/deepamehta/bundle-cache
     fi
+    if [ -d /var/cache/deepamehta/deepamehta-bundle-cache ]; then
+	    rm -rf /var/cache/deepamehta/deepamehta-bundle-cache
+    fi
     ;;
 
     upgrade)
@@ -60,6 +63,9 @@ case "$1" in
     fi
     if [ -d /var/cache/deepamehta/bundle-cache ]; then
 	    rm -rf /var/cache/deepamehta/bundle-cache
+    fi
+    if [ -d /var/cache/deepamehta/deepamehta-bundle-cache ]; then
+	    rm -rf /var/cache/deepamehta/deepamehta-bundle-cache
     fi
     ;;
 
