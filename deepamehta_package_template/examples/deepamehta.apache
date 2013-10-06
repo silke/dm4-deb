@@ -2,16 +2,18 @@
     
     ServerName deepamehta.yourdomain.tld
     ServerAdmin postmaster@yourdomain.tld
+    DefaultType text/html
 
     SSLEngine On
     SSLCertificateFile /etc/apache2/ssl/deepamehta.yourdomain.tld.pem
 
-    ErrorLog /var/log/apache2/deepamehta-error.log
-    CustomLog /var/log/apache2/deepamehta-access.log combined
+    ErrorLog /var/log/apache2/deepamehta-ssl-error.log
+    CustomLog /var/log/apache2/deepamehta-ssl-access.log combined
     
     RewriteEngine On 
-    RewriteRule ^/?$ http://localhost:8080/index.html [P] 
-    
+    RewriteRule ^/?$ http://localhost:8080/de.deepamehta.webclient [P] 
+    RewriteLog /var/log/apache2/deepamehta-ssl-rewrite.log    
+
     ProxyRequests Off
     ProxyPreserveHost Off
     AllowEncodedSlashes On
@@ -24,10 +26,6 @@
     <location />
 	Order allow,deny
 	Allow from all
-	AuthType Digest
-	AuthName "deepamehta.yourdomain.tld"
-	AuthUserFile /etc/apache2/.htdigest
-	Require valid-user
 	ProxyPass http://localhost:8080/
 	ProxyPassReverse http://localhost:8080/
     </location>
