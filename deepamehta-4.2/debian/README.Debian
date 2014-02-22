@@ -1,0 +1,25 @@
+deepamehta for Debian
+---------------------
+
++++ DeepaMehta is still under heavy development! +++
+
+DeepaMehta is under heavy development. While you can do productive work with it, DeepaMehta does not meet professional standards yet. At least there are lacks in a) security, b) robustness, and c) usability. Do not put sensitive data in DeepaMehta, in particular when you setup DeepaMehta for network access. Be aware that data loss may occur when you use DeepaMehta improperly. The DeepaMehta developers assume no liability for lost or compromised data. Please keep this in mind when using this software.
+
+Thank you for your understanding!
+
++++ Configuration +++
+
+By default, DeepaMehta is listening on port 8080. To change this setting, edit /etc/deepamehta/deepamehta.conf. Adjust the settings in /etc/deepamehta/deepamehta.conf and make sure your computer is protected by a firewall. Then edit /etc/default/deepamehta and set "START_DEEPAMEHTA=yes" before invoking "/etc/init.d/deepamehta start" to start DeepaMehta.
+
+dpkg -P deepamehta will remove all installed files but not delete your database.
+
++++ Apache +++
+
+See /usr/share/doc/deepamehta/examples/deepamehta.apache for a sample Apache2 config file (for details concerning Apache2 configuration see https://trac.deepamehta.de/wiki/UbuntuConfiguringApache2ServerSSLProxy.
+
++++ Security +++
+
+To secure your installation with iptables see https://trac.deepamehta.de/wiki/UbuntuSecuringDeepaMehta.
+
+
+ -- Silke Meyer <silke@silkemeyer.net>  Sat, 23 Oct 2011 16:30:42 +0200
