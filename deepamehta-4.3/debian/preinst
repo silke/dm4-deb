@@ -14,7 +14,7 @@ set -e
 # the debian-policy package
 
 BACKUPDATE=$( date +%F-%H:%M:%S )
-DMVERSION=4.2
+DMVERSION=4.3
 PREVIOUSVERSION=$( find /var/lib/deepamehta/deepamehta-db/ -name "*.db-updated.*" | cut -d'.' -f'3-' | sort -V | tail -n1 )
 
 if [ -f /var/run/deepamehta/deepamehta.pid ]; then

@@ -1,3 +1,10 @@
+deepamehta (4.3-1) precise; urgency=low
+
+  * No changes in deb package
+  * DeepaMehta maintenance release
+
+ -- Silke Meyer <silke@silkemeyer.net>  Sat, 07 Jun 2014 18:29:18 +0200
+
 deepamehta (4.2-1) precise; urgency=low
 
   * Files for DeepaMehta 4.2
