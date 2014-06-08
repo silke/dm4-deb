@@ -1,19 +1,22 @@
 #!/bin/bash
+# silke.
+# Adapt some variables ($DOWNLOADDIR, $WORKDIR) for your needs.
+# Run the script like this: dm-package.sh <last-version> <new-version> without any dots in the version numbers, e.g. dm-package.sh 413 42 (from 4.1.3 to 4.2) or dm-package.sh 42 43 (from 4.2 to 4.3).
+
 NEWVERSION="$2"
 OLDVERSION="$1"
-DOWNLOADDIR="/home/silke/Downloads"
+DOWNLOADDIR="<set a directory>"
 TMPDIR="/tmp"
-WORKDIR="/home/silke/DeepaMehta/dm4-deb"
+WORKDIR="<the directory you git-cloned into"
 
-# to do: check if there is an existing package with the new version no.
+# yet to be done: Check if there is already an existing package with the new version number.
 
+# Check if both, last and new version numbers are given.
 if [ "$2" == "" ]; then
 	echo "Call this script with two version numbers, the last one and the new one e.g. dm-package.sh 413 42"
 fi
 
 # insert the dots (for two and three digit version numbers)
-# counting: from where do you count and how many chars belong together?
-
 # for the new version no.
 if [ ${#NEWVERSION} -ge 3 ]; then
 		NEWVERSIONNUMBER="${NEWVERSION:0:1}.${NEWVERSION:1:1}.${NEWVERSION:2:1}${NEWVERSION:3:1}"
@@ -33,8 +36,8 @@ fi
 echo $OLDVERSIONNUMBER
 echo $NEWVERSIONNUMBER
 cd $WORKDIR
-# Give a moment to interrupt just in case he version no. is not correct.
-echo "Version number correct?"
+# Give a moment to interrupt just in case the version number is not correct.
+echo "Version number correct? Hit Ctrl+C if not."
 sleep 5
 
 # remove existing tmp files
@@ -42,7 +45,7 @@ if [ -d /tmp/deepamehta-${NEWVERSIONNUMBER} ]; then
 	rm -rf /tmp/deepamehta-${NEWVERSIONNUMBER}
 fi
 
-# copy the folder structure from template
+# Copy the folder structure from template.
 cp -a $WORKDIR/deepamehta_package_template $WORKDIR/deepamehta-$NEWVERSIONNUMBER
 
 # Copy over Debian changelog of last version.
@@ -53,35 +56,33 @@ if [ ! -f $DOWNLOADDIR/deepamehta-$NEWVERSIONNUMBER.zip ]; then
 	wget -P $DOWNLOADDIR http://download.deepamehta.de/deepamehta-$NEWVERSIONNUMBER.zip
 fi
 
-# unpack new in tmp directory
+# Unpack new code in /tmp directory.
 unzip $DOWNLOADDIR/deepamehta-$NEWVERSIONNUMBER.zip -d $TMPDIR
 
 # Remove the gogo shell. Keeping it will break the Debian package.
 rm -rf $TMPDIR/deepamehta-$NEWVERSIONNUMBER/bundle/org.apache.felix.gogo.*
 
-# cd to build dir
+# Change into the build directory.
 cd $WORKDIR/deepamehta-$NEWVERSIONNUMBER
 
-# copy new files to template
+# Copy new files to template.
 cp $TMPDIR/deepamehta-$NEWVERSIONNUMBER/bin/* bin/bin/
 cp $TMPDIR/deepamehta-$NEWVERSIONNUMBER/bundle/* bin/bundle/
 cp $TMPDIR/deepamehta-$NEWVERSIONNUMBER/*.txt .
 
 
-# increase the version no. in preinst
+# Increase the version number in the preinst script.
 cat $WORKDIR/deepamehta_package_template/debian/preinst  | sed "s/^DMVERSION\=XXX/DMVERSION\=${NEWVERSIONNUMBER}/" > debian/preinst
 
-#exit 0
-
-# edit the changelog
+# Edit the changelog.
 dch -d
 
-# create the archive
+# Create the archive.
 tar -czf ../deepamehta_$NEWVERSIONNUMBER.orig.tar.gz bin/ etc/ examples/
 
 # run debuild
 debuild -S -sa
 
-echo "You can now upload the changes file using dput deepamehta4 deepamehta_VERSIONNUMBER-1_source.changes."
+echo "You can now upload the changes file to launchpad using dput deepamehta4 deepamehta_VERSIONNUMBER-1_source.changes."
 
 #EOF
