@@ -83,6 +83,6 @@ tar -czf ../deepamehta_$NEWVERSIONNUMBER.orig.tar.gz bin/ etc/ examples/
 # run debuild
 debuild -S -sa
 
-echo "You can now upload the changes file to launchpad using dput deepamehta4 deepamehta_VERSIONNUMBER-1_source.changes."
+echo "You can now upload the changes file to launchpad using dput <reponame> deepamehta_VERSIONNUMBER-1_source.changes."
 
 #EOF
